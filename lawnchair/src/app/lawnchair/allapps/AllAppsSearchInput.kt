@@ -180,6 +180,7 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                     showLens = lensIntent != null,
                 )
 
+                val glass = prefs.glassAppDrawer.get()
                 val backgroundColor = if (supportBlur) {
                     ColorTokens.SearchboxHighlightBlur.resolveColor(context)
                 } else {
@@ -187,7 +188,8 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                 }
 
                 val backgroundAlpha by animateIntAsState(
-                    if (isFocused || !queryEmpty) 0 else 100,
+                    if (glass) { if (isFocused || !queryEmpty) 120 else 85 }
+                    else if (isFocused || !queryEmpty) 0 else 100,
                 )
 
                 // Ignore other theme attributes to preserve existing behavior
@@ -197,8 +199,8 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                     backgroundColor = backgroundColor,
                     backgroundAlpha = backgroundAlpha,
                     cornerRadius = 1f,
-                    strokeColor = null,
-                    strokeWidth = 0f,
+                    strokeColor = if (glass) 0x70FFFFFF else null,
+                    strokeWidth = if (glass) context.resources.displayMetrics.density else 0f,
                 )
 
                 val actions = QsbActions(

@@ -341,6 +341,11 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
         mBackground.setColor(LawnchairUtilsKt.resolveFolderBackgroundColor(getContext()));
         var alpha = LawnchairUtilsKt.getFolderBackgroundAlpha(getContext());
         mBackground.setAlpha(alpha);
+        if (LawnchairUtilsKt.isGlassAppDrawer(getContext())) {
+            mBackground.setAlpha(Math.min(alpha, 190));
+            mBackground.setStroke(Math.max(1, Math.round(getResources().getDisplayMetrics().density)),
+                    0x70FFFFFF);
+        }
 
         mContent = findViewById(R.id.folder_content);
         mContent.setPadding(paddingLeftRight, dp.folderContentPaddingTop, paddingLeftRight, 0);

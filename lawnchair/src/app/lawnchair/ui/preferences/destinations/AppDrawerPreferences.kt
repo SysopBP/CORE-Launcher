@@ -96,6 +96,11 @@ fun AppDrawerPreferences(
             AppDrawerHapticFeedbackPreference()
         }
         PreferenceGroup(heading = stringResource(R.string.style)) {
+            SwitchPreference(
+                adapter = prefs.glassAppDrawer.getAdapter(),
+                label = stringResource(R.string.core_glass_drawer),
+                description = stringResource(R.string.core_glass_drawer_help),
+            )
             ColorPreference(preference = prefs2.appDrawerBackgroundColor)
             SliderPreference(
                 label = stringResource(id = R.string.background_opacity),

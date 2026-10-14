@@ -285,7 +285,11 @@ public class PreviewBackground extends DelegatedCellDrawing {
 
     public void drawBackground(Canvas canvas) {
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(getBgColor());
+        int color = getBgColor();
+        if (app.lawnchair.util.LawnchairUtilsKt.isGlassAppDrawer(mContext)) {
+            color = (color & 0x00FFFFFF) | (Math.min(Color.alpha(color), 105) << 24);
+        }
+        mPaint.setColor(color);
 
         getShape().drawShape(canvas, getOffsetX(), getOffsetY(), getScaledRadius(), mPaint);
         drawShadow(canvas);
@@ -356,7 +360,8 @@ public class PreviewBackground extends DelegatedCellDrawing {
     }
 
     public void animateBackgroundStroke() {
-        if (!DRAW_STROKE) {
+        boolean glass = app.lawnchair.util.LawnchairUtilsKt.isGlassAppDrawer(mContext);
+        if (!DRAW_STROKE && !glass) {
             return;
         }
 
@@ -379,7 +384,7 @@ public class PreviewBackground extends DelegatedCellDrawing {
         if (!DRAW_STROKE) {
             return;
         }
-        mPaint.setColor(setColorAlphaBound(mStrokeColor, mStrokeAlpha));
+        mPaint.setColor(glass ? 0x70FFFFFF : setColorAlphaBound(mStrokeColor, mStrokeAlpha));
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(mStrokeWidth);
 

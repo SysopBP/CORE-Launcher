@@ -183,6 +183,7 @@ class PreferenceManager @Inject constructor(
     val wallpaperBlur = IntPref("pref_wallpaperBlur", 25, recreate)
     val wallpaperBlurFactorThreshold = FloatPref("pref_wallpaperBlurFactor", 3.0F, recreate)
 
+    val glassAppDrawer = BoolPref("pref_coreGlassAppDrawer", false, recreate)
     val drawerList = BoolPref("pref_drawerList", false, recreate)
     val folderApps = BoolPref("pref_hideFolderApps", true, reloadGrid)
 

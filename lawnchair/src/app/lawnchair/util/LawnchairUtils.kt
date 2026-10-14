@@ -176,6 +176,9 @@ private val pendingIntentTagId =
 
 val View?.pendingIntent get() = this?.getTag(pendingIntentTagId) as? PendingIntent
 
+fun isGlassAppDrawer(context: Context): Boolean =
+    PreferenceManager.getInstance(context).glassAppDrawer.get()
+
 fun getFolderPreviewAlpha(context: Context): Int {
     val prefs2 = PreferenceManager2.getInstance(context)
     return (prefs2.folderPreviewBackgroundOpacity.firstCached() * 255).toInt()

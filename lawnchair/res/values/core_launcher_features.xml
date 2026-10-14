@@ -9,4 +9,6 @@
     <string name="core_category_games">Games</string>
     <string name="core_category_system">System Apps</string>
     <string name="core_category_other">Other</string>
+    <string name="core_glass_drawer">Glass app drawer</string>
+    <string name="core_glass_drawer_help">Translucent drawer, highlighted search bar and glass folders. Background color and opacity control the tint; wallpaper blur uses the existing blur settings.</string>
 </resources>
