@@ -152,10 +152,15 @@ public class PredictedAppIcon extends DoubleShadowBubbleTextView {
      * container, the text will be small and sitting too close to the container. 
      * <p> 
      * This function will update the text size and padding to compensate for the container. */
+    private boolean usesPredictionRing() {
+        return app.lawnchair.preferences.PreferenceManager.getInstance(getContext())
+                .getIconPackPackage().get().isEmpty();
+    }
+
     private void compensateTextStyle() {
         if (mDisplay == DISPLAY_WORKSPACE) {
-            float scale = !mIsPinned ? (1 - 2f * RING_EFFECT_RATIO) : 1f;
-            float ringCompensation = !mIsPinned ? (getIconSize() * RING_EFFECT_RATIO) : 0f;
+            float scale = !mIsPinned && usesPredictionRing() ? (1 - 2f * RING_EFFECT_RATIO) : 1f;
+            float ringCompensation = !mIsPinned && usesPredictionRing() ? (getIconSize() * RING_EFFECT_RATIO) : 0f;
             setTextSize(TypedValue.COMPLEX_UNIT_PX, mDeviceProfile.iconTextSizePx / scale);
             setCompoundDrawablePadding(
                     Math.round((mDeviceProfile.iconDrawablePaddingPx + ringCompensation) / scale));
@@ -167,13 +172,15 @@ public class PredictedAppIcon extends DoubleShadowBubbleTextView {
         int count = canvas.save();
         boolean isSlotMachineAnimRunning = mSlotMachineIcon != null;
         if (!mIsPinned) {
-            drawRingEffect(canvas);
+            if (usesPredictionRing()) drawRingEffect(canvas);
             if (isSlotMachineAnimRunning) {
                 // Clip to to outside of the ring during the slot machine animation.
                 canvas.clipPath(mRingPath);
             }
-            canvas.scale(1 - 2f * RING_EFFECT_RATIO, 1 - 2f * RING_EFFECT_RATIO,
-                    getWidth() * .5f, getHeight() * .5f);
+            if (usesPredictionRing()) {
+                canvas.scale(1 - 2f * RING_EFFECT_RATIO, 1 - 2f * RING_EFFECT_RATIO,
+                        getWidth() * .5f, getHeight() * .5f);
+            }
             if (isSlotMachineAnimRunning) {
                 canvas.translate(0, mSlotMachineIconTranslationY);
                 mSlotMachineIcon.setBounds(mSlotIconBound);
@@ -193,8 +200,10 @@ public class PredictedAppIcon extends DoubleShadowBubbleTextView {
     protected void drawDotIfNecessary(Canvas canvas) {
         mIsDrawingDot = true;
         int count = canvas.save();
-        canvas.translate(-getWidth() * RING_EFFECT_RATIO, -getHeight() * RING_EFFECT_RATIO);
-        canvas.scale(1 + 2 * RING_EFFECT_RATIO, 1 + 2 * RING_EFFECT_RATIO);
+        if (usesPredictionRing()) {
+            canvas.translate(-getWidth() * RING_EFFECT_RATIO, -getHeight() * RING_EFFECT_RATIO);
+            canvas.scale(1 + 2 * RING_EFFECT_RATIO, 1 + 2 * RING_EFFECT_RATIO);
+        }
         super.drawDotIfNecessary(canvas);
         canvas.restoreToCount(count);
         mIsDrawingDot = false;
@@ -300,7 +309,7 @@ public class PredictedAppIcon extends DoubleShadowBubbleTextView {
     @Override
     public void getIconBounds(Rect outBounds) {
         super.getIconBounds(outBounds);
-        if (!mIsPinned && !mIsDrawingDot) {
+        if (!mIsPinned && usesPredictionRing() && !mIsDrawingDot) {
             int predictionInset = (int) (getIconSize() * RING_EFFECT_RATIO);
             outBounds.inset(predictionInset, predictionInset);
         }
@@ -449,7 +458,7 @@ public class PredictedAppIcon extends DoubleShadowBubbleTextView {
     @Override
     public void getSourceVisualDragBounds(Rect bounds) {
         super.getSourceVisualDragBounds(bounds);
-        if (!mIsPinned) {
+        if (!mIsPinned && usesPredictionRing()) {
             int internalSize = (int) (bounds.width() * RING_EFFECT_RATIO);
             bounds.inset(internalSize, internalSize);
         }
