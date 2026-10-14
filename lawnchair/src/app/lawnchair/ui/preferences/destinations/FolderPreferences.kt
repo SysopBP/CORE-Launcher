@@ -60,6 +60,13 @@ fun FolderPreferences(
                     IconShapePreview(iconShape = folderIconShapeAdapter.state.value)
                 },
             )
+            SliderPreference(
+                label = stringResource(id = R.string.core_folder_icon_size),
+                adapter = prefs.folderIconScale.getAdapter(),
+                step = 0.05f,
+                valueRange = 0.8f..1.4f,
+                showAsPercentage = true,
+            )
             ColorPreference(preference = prefs2.folderColor)
             SliderPreference(
                 label = stringResource(id = R.string.folder_preview_bg_opacity_label),
