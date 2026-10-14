@@ -97,6 +97,7 @@ import kotlinx.coroutines.launch
 
 class LawnchairLauncher : QuickstepLauncher() {
     private val defaultOverlay by unsafeLazy { OverlayCallbackImpl(this) }
+    private val d2LockBridge by lazy { app.lawnchair.integrations.D2LockBridge(this) }
     private val prefs by unsafeLazy { PreferenceManager.getInstance(this) }
     private val preferenceManager2 by unsafeLazy { PreferenceManager2.getInstance(this) }
     private val insetsController: WindowInsetsControllerCompat by lazy {
@@ -160,6 +161,7 @@ class LawnchairLauncher : QuickstepLauncher() {
     override fun onCreate(savedInstanceState: Bundle?) {
         layoutInflater.factory2 = LawnchairLayoutFactory(this)
         super.onCreate(savedInstanceState)
+        d2LockBridge.register()
 
         prefs.launcherTheme.subscribeChanges(this, ::updateTheme)
         prefs.feedProvider.subscribeChanges(this, defaultOverlay::reconnect)
@@ -469,6 +471,7 @@ class LawnchairLauncher : QuickstepLauncher() {
 
     override fun onResume() {
         super.onResume()
+        d2LockBridge.resumeIfLocked()
         restartIfPending()
         refreshPredictionContainersFromModel()
 
@@ -498,6 +501,7 @@ class LawnchairLauncher : QuickstepLauncher() {
     }
 
     override fun onDestroy() {
+        d2LockBridge.close()
         super.onDestroy()
         // Only actually closes if required, safe to call if not enabled
         SmartspacerClient.close()

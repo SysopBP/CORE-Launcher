@@ -3,7 +3,6 @@ package app.lawnchair.deck
 import android.content.Context
 import android.util.Log
 import app.lawnchair.LawnchairLauncher
-import app.lawnchair.flowerpot.Flowerpot
 import app.lawnchair.launcher
 import app.lawnchair.launcherNullable
 import app.lawnchair.util.categorizeAppsWithSystemAndGoogle
@@ -16,7 +15,6 @@ import com.android.launcher3.model.data.AppInfo
 import com.android.launcher3.model.data.FolderInfo
 import com.android.launcher3.model.data.WorkspaceItemInfo
 import com.android.launcher3.provider.RestoreDbTask
-import com.android.launcher3.util.ApplicationInfoWrapper
 import com.android.launcher3.util.ComponentKey
 import com.android.launcher3.util.PackageManagerHelper
 import java.io.File
@@ -193,32 +191,8 @@ class LawndeckManager(private val context: Context) {
         val activityInfo = activities[0]
         val appInfo = AppInfo(context, activityInfo, user)
 
-        val intent = appInfo.intent
-
-        // Determine category: Google Apps > System Apps > Flowerpot categories
-        val category = when {
-            packageName.startsWith("com.google.") -> "Google Apps"
-
-            intent != null && ApplicationInfoWrapper(context, intent).isSystem() -> "System Apps"
-
-            else -> {
-                // Use flowerpot to categorize the app
-                val potsManager = Flowerpot.Manager.getInstance(context)
-                val categorizedApps = potsManager.categorizeApps(listOf(appInfo))
-
-                if (categorizedApps.isEmpty()) {
-                    // No category found, add directly to workspace
-                    ItemInstallQueue.INSTANCE.get(context).queueItem(packageName, user)
-                    return
-                }
-
-                // Get the category from flowerpot
-                categorizedApps.entries.firstOrNull()?.key ?: run {
-                    ItemInstallQueue.INSTANCE.get(context).queueItem(packageName, user)
-                    return
-                }
-            }
-        }
+        val category = categorizeAppsWithSystemAndGoogle(listOf(appInfo), context)
+            .entries.firstOrNull()?.key ?: return
 
         // Check if there's already a folder for this category on workspace
         val existingFolder = findFolderByCategory(category, dataModel)

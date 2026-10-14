@@ -320,3 +320,24 @@ org.koshelek.android
 cy.com.netinfo.netteller.boc
 ru.tsk.ftc.bender.qpay
 emexp.dollarprice.free
+# CORE finance and payments coverage
+com.chase.sig.android
+com.infonow.bofa
+com.wf.wellsfargomobile
+com.venmo
+com.squareup.cash
+com.robinhood.android
+com.fidelity.android
+com.konylabs.capitalone
+com.usbank.mobilebanking
+com.discoverfinancial.mobile
+com.americanexpress.android.acctsvcs.us
+com.schwab.mobile
+com.sofi.mobile
+com.onedebit.chime
+com.navyfederal.android
+com.regions.mobbanking
+com.pnc.ecommerce.mobile
+com.truist.mobile
+com.creditkarma.mobile
+com.intuit.creditkarma

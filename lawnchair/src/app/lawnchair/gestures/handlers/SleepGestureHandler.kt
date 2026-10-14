@@ -36,6 +36,7 @@ import kotlinx.coroutines.flow.first
 class SleepGestureHandler(context: Context) : GestureHandler(context) {
 
     override suspend fun onTrigger(launcher: LawnchairLauncher) {
+        if (app.lawnchair.integrations.D2LockBridge.requestLock(launcher, force = true)) return
         val pref = PreferenceManager2.getInstance(context).sleepMode.get().first()
         val method = when (pref) {
             SleepMode.AUTO -> methods.first { it.isSupported() }

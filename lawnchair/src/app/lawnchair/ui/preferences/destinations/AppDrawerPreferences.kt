@@ -217,7 +217,7 @@ fun AppDrawerPreferences(
 @Composable
 private fun DrawerLayoutPreference(drawerListAdapter: PreferenceAdapter<Boolean>) {
     SwitchPreferenceWithPreview(
-        label = stringResource(id = R.string.layout),
+        label = stringResource(id = R.string.core_auto_folders),
         checked = !drawerListAdapter.state.value,
         onCheckedChange = { drawerListAdapter.onChange(!it) },
         disabledLabel = stringResource(id = R.string.feed_default),
@@ -250,7 +250,7 @@ private fun DrawerLayoutPreference(drawerListAdapter: PreferenceAdapter<Boolean>
                 }
             }
         },
-        enabledLabel = stringResource(id = R.string.caddy_beta),
+        enabledLabel = stringResource(id = R.string.core_auto_folders_categories),
         enabledContent = {
             Box(
                 modifier = Modifier

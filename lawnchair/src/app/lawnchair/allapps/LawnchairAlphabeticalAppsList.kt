@@ -99,9 +99,7 @@ class LawnchairAlphabeticalAppsList<T>(
             val finalCategorizedApps = categorizeAppsWithSystemAndGoogle(validApps, context)
 
             finalCategorizedApps.forEach { (category, apps) ->
-                if (apps.size == 1) {
-                    mAdapterItems.add(AdapterItem.asApp(apps.first()))
-                } else {
+                if (apps.isNotEmpty()) {
                     val folderInfo = FolderInfo().apply {
                         title = category
                         apps.forEach { add(it) }

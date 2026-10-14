@@ -5,10 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import app.lawnchair.gestures.handlers.SleepMode
 import app.lawnchair.preferences.getAdapter
+import app.lawnchair.preferences.preferenceManager
 import app.lawnchair.preferences2.preferenceManager2
 import app.lawnchair.ui.preferences.LocalIsExpandedScreen
 import app.lawnchair.ui.preferences.components.GestureHandlerPreference
 import app.lawnchair.ui.preferences.components.controls.ListPreference
+import app.lawnchair.ui.preferences.components.controls.SwitchPreference
 import app.lawnchair.ui.preferences.components.layout.PreferenceGroup
 import app.lawnchair.ui.preferences.components.layout.PreferenceLayout
 import com.android.launcher3.R
@@ -54,6 +56,11 @@ fun GesturePreferences(
             )
         }
         PreferenceGroup(heading = stringResource(id = R.string.sleep_mode_label)) {
+            SwitchPreference(
+                adapter = preferenceManager().d2LockIntegration.getAdapter(),
+                label = stringResource(R.string.core_d2_lock),
+                description = stringResource(R.string.core_d2_lock_help),
+            )
             ListPreference(
                 adapter = prefs.sleepMode.getAdapter(),
                 entries = SleepMode.entries(),

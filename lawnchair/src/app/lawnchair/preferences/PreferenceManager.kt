@@ -72,6 +72,7 @@ class PreferenceManager @Inject constructor(
 
     val iconPackPackage = StringPref("pref_iconPackPackage", "", reloadIcons)
     val themedIconPackPackage = StringPref("pref_themedIconPackPackage", "", reloadIcons)
+    val d2LockIntegration = BoolPref("pref_d2LockIntegration", true)
     val allowRotation = BoolPref("pref_allowRotation", false)
     val wrapAdaptiveIcons = BoolPref("prefs_wrapAdaptive", true)
     val transparentIconBackground = BoolPref("prefs_transparentIconBackground", false)
@@ -182,7 +183,7 @@ class PreferenceManager @Inject constructor(
     val wallpaperBlur = IntPref("pref_wallpaperBlur", 25, recreate)
     val wallpaperBlurFactorThreshold = FloatPref("pref_wallpaperBlurFactor", 3.0F, recreate)
 
-    val drawerList = BoolPref("pref_drawerList", true, recreate)
+    val drawerList = BoolPref("pref_drawerList", false, recreate)
     val folderApps = BoolPref("pref_hideFolderApps", true, reloadGrid)
 
     val recentsActionScreenshot = BoolPref("pref_recentsActionScreenshot", !isOnePlusStock)

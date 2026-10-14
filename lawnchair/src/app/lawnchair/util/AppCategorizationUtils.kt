@@ -2,54 +2,37 @@ package app.lawnchair.util
 
 import android.content.Context
 import app.lawnchair.flowerpot.Flowerpot
+import com.android.launcher3.R
 import com.android.launcher3.model.data.AppInfo
 import com.android.launcher3.util.ApplicationInfoWrapper
-import com.android.launcher3.util.PackageManagerHelper
 
-/**
- * Categorizes apps into System Apps, Google Apps, and Flowerpot categories.
- *
- * @param apps List of apps to categorize
- * @param context Context for checking system apps and accessing Flowerpot
- * @return Map of category names to lists of apps in that category
- */
+/** Google first, then functional categories, with System Apps as a fallback only. */
 fun categorizeAppsWithSystemAndGoogle(
     apps: List<AppInfo>,
     context: Context,
 ): Map<String, List<AppInfo>> {
-    val systemApps = mutableListOf<AppInfo>()
-    val googleApps = mutableListOf<AppInfo>()
-    val otherApps = mutableListOf<AppInfo>()
-
-    apps.forEach { app ->
-        val packageName = app.targetPackage ?: return@forEach
-        val intent = app.intent
-
-        // Check if it's a Google app first (Google apps can also be system apps)
-        when {
-            packageName.startsWith("com.google.") -> googleApps.add(app)
-            intent != null && ApplicationInfoWrapper(context, intent).isSystem() -> systemApps.add(app)
-            else -> otherApps.add(app)
+    val googleApps = apps.filter { it.targetPackage?.startsWith("com.google.") == true }
+    val otherApps = apps.filterNot { it in googleApps }
+    val pots = Flowerpot.Manager.getInstance(context)
+    val financeLabel = pots.getPot("FINANCE")?.displayName
+    val gameLabel = pots.getPot("GAME")?.displayName
+    val categories = linkedMapOf<String, List<AppInfo>>()
+    if (googleApps.isNotEmpty()) categories[context.getString(R.string.core_category_google)] = googleApps
+    pots.categorizeApps(otherApps).forEach { (category, items) ->
+        when (category) {
+            financeLabel -> categories[context.getString(R.string.core_category_finance)] = items
+            gameLabel -> categories[context.getString(R.string.core_category_games)] = items
+            "Other" -> {
+                val system = items.filter {
+                    val intent = it.intent
+                    intent != null && ApplicationInfoWrapper(context, intent).isSystem()
+                }
+                val remaining = items.filterNot { it in system }
+                if (system.isNotEmpty()) categories[context.getString(R.string.core_category_system)] = system
+                if (remaining.isNotEmpty()) categories[context.getString(R.string.core_category_other)] = remaining
+            }
+            else -> categories[category] = items
         }
     }
-
-    // Use flowerpot to categorize other apps (non-system, non-Google)
-    val potsManager = Flowerpot.Manager.getInstance(context)
-    val categorizedApps = potsManager.categorizeApps(otherApps)
-
-    // Build final categorized apps map
-    val finalCategorizedApps = mutableMapOf<String, List<AppInfo>>()
-
-    if (systemApps.isNotEmpty()) {
-        finalCategorizedApps["System Apps"] = systemApps
-    }
-
-    if (googleApps.isNotEmpty()) {
-        finalCategorizedApps["Google Apps"] = googleApps
-    }
-
-    // Add flowerpot categorized apps
-    finalCategorizedApps.putAll(categorizedApps)
-
-    return finalCategorizedApps
+    return categories
 }

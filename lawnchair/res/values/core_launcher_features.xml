@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_d2_lock">Use D2 lock screen</string>
+    <string name="core_d2_lock_help">Let enabled D2 handle double-tap locking and return to its lock screen on wake. Requires the D2 launcher bridge update and CORE as the default Home app.</string>
+    <string name="core_auto_folders">Automatic app folders</string>
+    <string name="core_auto_folders_categories">Google, Finance, Games and more</string>
+    <string name="core_category_google">Google</string>
+    <string name="core_category_finance">Finance</string>
+    <string name="core_category_games">Games</string>
+    <string name="core_category_system">System Apps</string>
+    <string name="core_category_other">Other</string>
+</resources>
