@@ -358,6 +358,14 @@ public class DeviceProfile {
         return Math.round(getAllAppsProfile().getIconSizePx()
                 * ICON_VISIBLE_AREA_FACTOR * folderIconScale);
     }
+    /** Reserve room for enlarged previews and their border without clipping the label. */
+    public int getAllAppsFolderCellHeightPx() {
+        int extra = Math.max(0, getAllAppsFolderIconSizePx()
+                - getAllAppsProfile().getIconSizePx());
+        return getAllAppsProfile().getCellHeightPx() + extra
+                + Math.round(4 * mMetrics.density);
+    }
+
     private final float dockHeightFactor;
     private PreferenceManager2 preferenceManager2 = null;
 

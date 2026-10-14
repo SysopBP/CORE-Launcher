@@ -211,7 +211,13 @@ public class FolderIcon extends FrameLayout implements FloatingIconViewCompanion
         icon.mFolderName.setCompoundDrawablePadding(0);
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) icon.mFolderName.getLayoutParams();
         if (folderInfo.container == ItemInfo.NO_ID) {
-            lp.topMargin = grid.getAllAppsProfile().getIconSizePx() + grid.getAllAppsProfile().getIconDrawablePaddingPx();
+            // Enlarged drawer previews start inside the view instead of above it.
+            int borderInset = Math.round(2 * icon.getResources().getDisplayMetrics().density);
+            icon.setPadding(icon.getPaddingLeft(), borderInset,
+                    icon.getPaddingRight(), borderInset);
+            lp.topMargin = Math.max(grid.getAllAppsProfile().getIconSizePx(),
+                    grid.getAllAppsFolderIconSizePx())
+                    + grid.getAllAppsProfile().getIconDrawablePaddingPx();
             icon.mBackground = new PreviewBackground(activity.getDragLayer().getContext());
         } else {
             lp.topMargin = grid.iconSizePx + grid.iconDrawablePaddingPx;
@@ -637,7 +643,8 @@ public class FolderIcon extends FrameLayout implements FloatingIconViewCompanion
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        boolean shouldCenterIcon = mActivity.getDeviceProfile().iconCenterVertically;
+        boolean shouldCenterIcon = !isInAppDrawer()
+                && mActivity.getDeviceProfile().iconCenterVertically;
         if (shouldCenterIcon) {
             int iconSize = mActivity.getDeviceProfile().iconSizePx;
             Paint.FontMetrics fm = mFolderName.getPaint().getFontMetrics();

@@ -266,7 +266,7 @@ public abstract class BaseAllAppsAdapter<T extends Context & ActivityContext> ex
                 FrameLayout fl = new FrameLayout(mActivityContext);
                 fl.setLayoutParams(new RecyclerView.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
-                        mActivityContext.getDeviceProfile().getAllAppsProfile().getCellHeightPx()));
+                        mActivityContext.getDeviceProfile().getAllAppsFolderCellHeightPx()));
                 return new ViewHolder(fl);
             default:
                 if (mAdapterProvider.isViewSupported(viewType)) {

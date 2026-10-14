@@ -202,7 +202,7 @@ public class PreviewBackground extends DelegatedCellDrawing {
             int allAppsIconSize = grid.getAllAppsProfile().getIconSizePx();
             previewSize = grid.getAllAppsFolderIconSizePx();
             basePreviewOffsetX = (availableSpaceX - previewSize) / 2;
-            basePreviewOffsetY = topPadding + (allAppsIconSize - previewSize) / 2;
+            basePreviewOffsetY = topPadding + Math.max(0, (allAppsIconSize - previewSize) / 2);
         } else {
             previewSize = grid.folderIconSizePx;
 
