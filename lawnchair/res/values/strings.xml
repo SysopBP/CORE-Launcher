@@ -1071,4 +1071,9 @@
     <string name="lawnchair_action_failed">Failed to trigger action</string>
 
     <string name="please_wait">Please wait…</string>
+    <string name="core_folder_add_apps">Add apps</string>
+    <string name="core_folder_add_to">Add apps to %1$s</string>
+    <string name="core_folder_search_apps">Search apps</string>
+    <string name="core_folder_no_apps">All available apps are already in this folder</string>
+    <string name="core_folder_add_failed">Could not save apps. Please try again.</string>
 </resources>

@@ -352,6 +352,12 @@ public class DeviceProfile {
     private float widgetPaddingFactor;
     private float drawerPaddingTopFactor;
     private float folderIconScale = 1f;
+
+    /** Folder preview size in the drawer, including the shared folder-size preference. */
+    public int getAllAppsFolderIconSizePx() {
+        return Math.round(getAllAppsProfile().getIconSizePx()
+                * ICON_VISIBLE_AREA_FACTOR * folderIconScale);
+    }
     private final float dockHeightFactor;
     private PreferenceManager2 preferenceManager2 = null;
 

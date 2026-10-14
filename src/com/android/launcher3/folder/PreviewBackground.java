@@ -200,7 +200,7 @@ public class PreviewBackground extends DelegatedCellDrawing {
         // Lawnchair: Find the correct icon size depending on which parent owned them
         if (invalidateDelegate instanceof FolderIcon && ((FolderIcon) invalidateDelegate).isInAppDrawer()) {
             int allAppsIconSize = grid.getAllAppsProfile().getIconSizePx();
-            previewSize = Math.round(allAppsIconSize * ICON_VISIBLE_AREA_FACTOR);
+            previewSize = grid.getAllAppsFolderIconSizePx();
             basePreviewOffsetX = (availableSpaceX - previewSize) / 2;
             basePreviewOffsetY = topPadding + (allAppsIconSize - previewSize) / 2;
         } else {

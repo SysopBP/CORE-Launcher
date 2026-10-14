@@ -54,6 +54,18 @@
             android:textColorHighlight="?android:attr/colorControlHighlight"
             android:textColorHint="?attr/folderHintTextColor"/>
 
+        <TextView
+            android:id="@+id/core_folder_add_apps"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="+"
+            android:textSize="28sp"
+            android:textColor="?attr/folderTextColor"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/core_folder_add_apps"
+            android:visibility="gone" />
+
         <com.android.launcher3.pageindicators.PageIndicatorDots
             android:id="@+id/folder_page_indicator"
             android:layout_gravity="center_vertical"

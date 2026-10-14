@@ -96,7 +96,9 @@ class LawnchairAlphabeticalAppsList<T>(
 
         if (!drawerListDefault) {
             val validApps = appList.mapNotNull { it }
-            val finalCategorizedApps = categorizeAppsWithSystemAndGoogle(validApps, context)
+            val finalCategorizedApps = FolderQuickAdd.withAdditions(
+                categorizeAppsWithSystemAndGoogle(validApps, context), validApps, context,
+            )
 
             finalCategorizedApps.forEach { (category, apps) ->
                 if (apps.isNotEmpty()) {

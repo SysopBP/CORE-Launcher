@@ -686,6 +686,11 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
 
     void bind(FolderInfo info) {
         mInfo = info;
+        View addApps = findViewById(R.id.core_folder_add_apps);
+        if (addApps != null) {
+            addApps.setVisibility(isInAppDrawer() ? View.VISIBLE : View.GONE);
+            addApps.setOnClickListener(v -> app.lawnchair.allapps.FolderQuickAdd.show(this));
+        }
         mFromTitle = info.title;
         mFromLabelState = info.getFromLabelState();
         updateItemLocationsInDatabaseBatch(true);
