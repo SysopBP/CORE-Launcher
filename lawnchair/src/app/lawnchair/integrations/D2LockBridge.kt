@@ -21,7 +21,7 @@ class D2LockBridge(private val launcher: LawnchairLauncher) {
     private var resuming = false
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            launcher.window.decorView.postDelayed({
+            launcher.window?.decorView?.postDelayed({
                 if (launcher.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) resumeIfLocked()
             }, 180L)
         }
