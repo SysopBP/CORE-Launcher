@@ -95,7 +95,7 @@ fun Preferences(
     CoreSettingsTheme {
     Providers {
         Surface(
-            color = if (LocalCoreSettingsGlass.current) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface,
+            color = if (LocalCoreSettingsBackdrop.current) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface,
             modifier = modifier,
         ) {
             CompositionLocalProvider(

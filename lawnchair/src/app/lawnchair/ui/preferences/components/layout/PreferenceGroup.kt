@@ -16,6 +16,7 @@
 
 package app.lawnchair.ui.preferences.components.layout
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,7 +54,14 @@ fun PreferenceGroup(
         Column(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .clip(MaterialTheme.shapes.large),
+                .clip(MaterialTheme.shapes.large)
+                .then(if (app.lawnchair.ui.preferences.LocalCoreSettingsBorder.current > 0f) {
+                    Modifier.border(
+                        1.dp,
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = app.lawnchair.ui.preferences.LocalCoreSettingsBorder.current),
+                        MaterialTheme.shapes.large,
+                    )
+                } else Modifier),
             verticalArrangement = Arrangement.spacedBy(itemSpacing),
         ) {
             content()

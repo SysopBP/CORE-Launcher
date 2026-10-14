@@ -141,6 +141,12 @@ class PreferenceManager @Inject constructor(
     val coreSettingsMiuix = BoolPref("pref_coreSettingsMiuix", false)
     val coreSettingsGlass = BoolPref("pref_coreSettingsGlass", false)
     val coreSettingsOpacity = FloatPref("pref_coreSettingsOpacity", 0.75f)
+    val coreSettingsAccent = StringPref("pref_coreSettingsAccent", "blue")
+    val coreSettingsBackground = StringPref("pref_coreSettingsBackground", "neutral")
+    val coreSettingsRadius = FloatPref("pref_coreSettingsRadius", 28f)
+    val coreSettingsBorder = FloatPref("pref_coreSettingsBorder", 0.12f)
+    val coreSettingsTint = FloatPref("pref_coreSettingsTint", 0.08f)
+    val coreSettingsCompactHeader = BoolPref("pref_coreSettingsCompactHeader", false)
 
     val recentActionOrder = StringPref("pref_recentActionOrder", "0,1,2,3,4", recreate)
 

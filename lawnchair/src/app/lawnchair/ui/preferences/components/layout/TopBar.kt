@@ -33,6 +33,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -50,7 +51,14 @@ fun TopBar(
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val buttonPadding = 4.dp
 
-    if (isExpandedScreen) {
+    val glass = app.lawnchair.ui.preferences.LocalCoreSettingsGlass.current
+    val colors = TopAppBarDefaults.topAppBarColors(
+        containerColor = if (app.lawnchair.ui.preferences.LocalCoreSettingsBackdrop.current) Color.Transparent else MaterialTheme.colorScheme.surface,
+        scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer.copy(
+            alpha = if (glass) app.lawnchair.ui.preferences.LocalCoreSettingsOpacity.current else 1f,
+        ),
+    )
+    if (isExpandedScreen || app.lawnchair.ui.preferences.LocalCoreSettingsCompactHeader.current) {
         TopAppBar(
             modifier = modifier,
             title = {
@@ -77,9 +85,7 @@ fun TopBar(
                 }
             },
             scrollBehavior = scrollBehavior,
-            colors = TopAppBarDefaults.topAppBarColors().copy(
-                scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            ),
+            colors = colors,
         )
     } else {
         LargeTopAppBar(
@@ -106,9 +112,7 @@ fun TopBar(
                 }
             },
             scrollBehavior = scrollBehavior,
-            colors = TopAppBarDefaults.topAppBarColors().copy(
-                scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-            ),
+            colors = colors,
         )
     }
 }
