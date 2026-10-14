@@ -138,6 +138,10 @@ class PreferenceManager @Inject constructor(
         override fun unflattenValue(value: String) = value
     }
 
+    val coreSettingsMiuix = BoolPref("pref_coreSettingsMiuix", false)
+    val coreSettingsGlass = BoolPref("pref_coreSettingsGlass", false)
+    val coreSettingsOpacity = FloatPref("pref_coreSettingsOpacity", 0.75f)
+
     val recentActionOrder = StringPref("pref_recentActionOrder", "0,1,2,3,4", recreate)
 
     private val fontCache = FontCache.INSTANCE.get(context)
