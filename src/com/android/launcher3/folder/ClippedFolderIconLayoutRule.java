@@ -28,6 +28,11 @@ public class ClippedFolderIconLayoutRule {
     private boolean mIsRtl;
     private float mBaselineIconScale;
     private int mNumFolderColumns;
+    private boolean mDrawerGrid;
+
+    public void setDrawerGrid(boolean enabled) {
+        mDrawerGrid = enabled;
+    }
 
     /**
      * initialize the layout rule
@@ -138,6 +143,17 @@ public class ClippedFolderIconLayoutRule {
     }
 
     private void getPosition(int index, int curNumItems, float[] result) {
+        if (mDrawerGrid) {
+            float item = mIconSize * scaleForItem(curNumItems, 0);
+            int count = Math.min(MAX_NUM_ITEMS_IN_PREVIEW, Math.max(1, curNumItems));
+            int col = index % 2;
+            if (mIsRtl) col = 1 - col;
+            result[0] = count == 1 ? (mAvailableSpace - item) / 2
+                    : mAvailableSpace * (col == 0 ? 0.06f : 0.54f);
+            result[1] = count <= 2 ? (mAvailableSpace - item) / 2
+                    : mAvailableSpace * (index / 2 == 0 ? 0.06f : 0.54f);
+            return;
+        }
         // The case of two items is homomorphic to the case of one.
         curNumItems = Math.max(curNumItems, 2);
 
@@ -196,6 +212,7 @@ public class ClippedFolderIconLayoutRule {
      * @return scale for icons in Folder
      */
     public float scaleForItem(int numItems, int page) {
+        if (mDrawerGrid) return (numItems == 1 ? 0.56f : 0.40f) * mBaselineIconScale;
         float scale;
         if (page > 0) {
             scale = MIN_SCALE;

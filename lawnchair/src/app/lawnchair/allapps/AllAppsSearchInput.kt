@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
@@ -122,6 +123,18 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+        ViewCompat.setOnApplyWindowInsetsListener(this) { _, windowInsets ->
+            val bottom = max(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom,
+                windowInsets.getInsets(WindowInsetsCompat.Type.ime()).bottom)
+            val params = layoutParams as MarginLayoutParams
+            val margin = if (hideSearchBar) 0 else bottom +
+                (8 * resources.displayMetrics.density).toInt()
+            if (params.bottomMargin != margin) {
+                params.bottomMargin = margin
+                requestLayout()
+            }
+            windowInsets
+        }
 
         setupPadding()
         bgAlphaAnimator.addUpdateListener { updateBgAlpha() }
@@ -509,16 +522,11 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
 
     override fun setInsets(insets: Rect) {
         (layoutParams as MarginLayoutParams).apply {
-            topMargin = when {
-                hideSearchBar -> 0
-
-                // Sheet mode already pads the container with status-bar insets; only clear the
-                // drag handle. Re-applying insets.top here created the large empty band under it.
-                launcher.deviceProfile.shouldShowAllAppsOnSheet() ->
-                    resources.getDimensionPixelSize(R.dimen.bottom_sheet_handle_area_height)
-
-                else -> max(-allAppsSearchVerticalOffset, insets.top - qsbMarginTopAdjusting)
-            }
+            topMargin = 0
+            bottomMargin = if (hideSearchBar) 0 else
+                max(insets.bottom, ViewCompat.getRootWindowInsets(this@AllAppsSearchInput)
+                    ?.getInsets(WindowInsetsCompat.Type.ime())?.bottom ?: 0) +
+                    (8 * resources.displayMetrics.density).toInt()
         }
         requestLayout()
     }

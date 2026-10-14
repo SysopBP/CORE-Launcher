@@ -326,6 +326,9 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         if (!isSearchBarFloating()) {
             // Add the search box above everything else in this container (if the flag is enabled,
             // it's added to drag layer in onAttach instead).
+            RelativeLayout.LayoutParams searchParams =
+                    (RelativeLayout.LayoutParams) mSearchContainer.getLayoutParams();
+            searchParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             addView(mSearchContainer);
             // The search container is visually at the top of the all apps UI, and should thus be
             // focused by default. It's added to end of the children list, so it needs to be
@@ -837,8 +840,12 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
             alignParentTop(rvContainer, showTabs);
             alignParentTop(getSearchRecyclerView(), /* tabs= */ false);
         } else {
-            layoutBelowSearchContainer(rvContainer, showTabs);
-            layoutBelowSearchContainer(getSearchRecyclerView(), /* tabs= */ false);
+            layoutWithoutSearchContainer(rvContainer, showTabs);
+            layoutWithoutSearchContainer(getSearchRecyclerView(), /* tabs= */ false);
+            ((RelativeLayout.LayoutParams) rvContainer.getLayoutParams()).addRule(
+                    RelativeLayout.ABOVE, R.id.search_container_all_apps);
+            ((RelativeLayout.LayoutParams) getSearchRecyclerView().getLayoutParams()).addRule(
+                    RelativeLayout.ABOVE, R.id.search_container_all_apps);
         }
 
         updateSearchResultsVisibility();
@@ -874,7 +881,7 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         } else if (isSearchBarFloating()) {
             alignParentTop(mHeader, false /* includeTabsMargin */);
         } else {
-            layoutBelowSearchContainer(mHeader, false /* includeTabsMargin */);
+            layoutWithoutSearchContainer(mHeader, false /* includeTabsMargin */);
         }
     }
 
@@ -1107,6 +1114,7 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
 
         RelativeLayout.LayoutParams layoutParams = (LayoutParams) v.getLayoutParams();
         layoutParams.removeRule(RelativeLayout.ABOVE);
+        layoutParams.removeRule(RelativeLayout.BELOW);
         layoutParams.removeRule(RelativeLayout.ALIGN_TOP);
         layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_TOP);
     }
