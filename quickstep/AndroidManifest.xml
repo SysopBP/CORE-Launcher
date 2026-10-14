@@ -56,12 +56,13 @@
     <permission android:name="${applicationId}.permission.START_WIDGET_PICKER_ACTIVITY"
         android:protectionLevel="signature|privileged" />
 
+    <!-- Modified for CORE Launcher: use the shared CORE application icon. -->
     <application android:backupAgent="com.android.launcher3.LauncherBackupAgent"
          android:enableOnBackInvokedCallback="true"
          android:fullBackupOnly="true"
          android:fullBackupContent="@xml/backupscheme"
          android:hardwareAccelerated="true"
-         android:icon="@drawable/ic_launcher_home"
+         android:icon="@mipmap/core_launcher_icon"
          android:label="@string/derived_app_name"
          android:theme="@style/AppTheme"
          android:largeHeap="@bool/config_largeHeap"
