@@ -17,4 +17,6 @@
     <string name="core_dock_background_blur">Blur background image</string>
     <string name="core_dock_background_blur_help">Softens only the chosen image; icons stay sharp.</string>
     <string name="core_dock_background_shadow">Dock background shadow</string>
+    <string name="core_dock_icon_size">Dock icon size</string>
+    <string name="core_dock_height">Dock bar height</string>
 </resources>

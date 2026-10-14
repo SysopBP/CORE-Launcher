@@ -171,6 +171,8 @@ class PreferenceManager @Inject constructor(
     val hotseatQsbCornerRadius = FloatPref("pref_hotseatQsbCornerRadius", 1F, recreate)
     val hotseatQsbAlpha = IntPref("pref_searchHotseatTranparency", 100, recreate)
     val hotseatQsbStrokeWidth = FloatPref("pref_searchStrokeWidth", 0F, recreate)
+    val dockIconScale = FloatPref("pref_coreDockIconScale", 1.1f, recreate)
+    val dockHeightFactor = FloatPref("pref_coreDockHeightFactor", 1.2f, recreate)
     val dockBackgroundImage = StringPref("pref_coreDockBackgroundImage", "", recreate)
     val dockBackgroundBlur = BoolPref("pref_coreDockBackgroundBlur", false, recreate)
     val dockBackgroundShadow = BoolPref("pref_coreDockBackgroundShadow", false, recreate)

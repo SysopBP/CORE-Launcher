@@ -98,6 +98,12 @@ fun DockPreferences(modifier: Modifier = Modifier) {
             }
             GridSettings(prefs, prefs2)
             PreferenceGroup(heading = stringResource(id = R.string.icons)) {
+                SliderPreference(label = stringResource(R.string.core_dock_icon_size),
+                    adapter = prefs.dockIconScale.getAdapter(), step = 0.05f,
+                    valueRange = 0.8f..1.4f, showAsPercentage = true)
+                SliderPreference(label = stringResource(R.string.core_dock_height),
+                    adapter = prefs.dockHeightFactor.getAdapter(), step = 0.1f,
+                    valueRange = 1f..1.8f, showAsPercentage = true)
                 SwitchPreference(
                     adapter = prefs2.enableLabelInDock.getAdapter(),
                     label = stringResource(id = R.string.show_labels),

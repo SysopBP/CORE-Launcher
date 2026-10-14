@@ -211,7 +211,10 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements FolderIcon.
             int iconSize = child instanceof BubbleTextView
                     ? ((BubbleTextView) child).getIconSize() : dp.iconSizePx;
             float gap = 8f * getResources().getDisplayMetrics().density;
-            float scale = Math.min(1f, Math.max(1f, lp.width - gap) / Math.max(1, iconSize));
+            float requestedScale = app.lawnchair.preferences.PreferenceManager.getInstance(getContext())
+                    .getDockIconScale().get();
+            float available = Math.max(1f, Math.min(lp.width - gap, lp.height - gap));
+            float scale = Math.min(requestedScale, available / Math.max(1, iconSize));
             child.setScaleX(scale);
             child.setScaleY(scale);
         }
