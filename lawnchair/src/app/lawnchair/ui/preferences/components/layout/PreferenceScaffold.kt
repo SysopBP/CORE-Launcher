@@ -39,6 +39,7 @@ fun PreferenceScaffold(
 ) {
     val scrollBehavior = if (isExpandedScreen) TopAppBarDefaults.pinnedScrollBehavior() else TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
+        containerColor = if (app.lawnchair.ui.preferences.LocalCoreSettingsGlass.current) androidx.compose.ui.graphics.Color.Transparent else androidx.compose.material3.MaterialTheme.colorScheme.surface,
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopBar(
