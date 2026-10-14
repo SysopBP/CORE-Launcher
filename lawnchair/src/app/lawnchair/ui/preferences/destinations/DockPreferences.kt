@@ -16,6 +16,14 @@
 
 package app.lawnchair.ui.preferences.destinations
 
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.platform.LocalContext
+import app.lawnchair.hotseat.DisabledHotseat
+import app.lawnchair.hotseat.LawnchairHotseat
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -79,6 +87,12 @@ fun DockPreferences(modifier: Modifier = Modifier) {
                     HotseatBackgroundSettings(prefs, prefs2)
                 }
             }
+            val searchMode = prefs2.hotseatMode.getAdapter()
+            SwitchPreference(
+                checked = searchMode.state.value != DisabledHotseat,
+                onCheckedChange = { searchMode.onChange(if (it) LawnchairHotseat else DisabledHotseat) },
+                label = stringResource(R.string.core_show_bottom_search),
+            )
             SearchBarPreference(SearchRoute.DOCK_SEARCH)
             GridSettings(prefs, prefs2)
             PreferenceGroup(heading = stringResource(id = R.string.icons)) {
@@ -93,7 +107,26 @@ fun DockPreferences(modifier: Modifier = Modifier) {
 
 @Composable
 fun HotseatBackgroundSettings(prefs: PreferenceManager, prefs2: PreferenceManager2) {
+    val context = LocalContext.current
+    val imagePicker = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null) {
+            runCatching {
+                context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }.onSuccess { prefs.dockBackgroundImage.set(uri.toString()) }
+        }
+    }
     DividerColumn {
+        TextButton(onClick = { imagePicker.launch(arrayOf("image/*")) }) {
+            Text(stringResource(R.string.core_dock_background_image))
+        }
+        TextButton(onClick = { prefs.dockBackgroundImage.set("") }) {
+            Text(stringResource(R.string.core_dock_background_image_clear))
+        }
+        SwitchPreference(adapter = prefs.dockBackgroundBlur.getAdapter(),
+            label = stringResource(R.string.core_dock_background_blur),
+            description = stringResource(R.string.core_dock_background_blur_help))
+        SwitchPreference(adapter = prefs.dockBackgroundShadow.getAdapter(),
+            label = stringResource(R.string.core_dock_background_shadow))
         ColorPreference(preference = prefs2.hotseatBackgroundColor)
         SliderPreference(
             label = stringResource(id = R.string.hotseat_bg_corner_radius),

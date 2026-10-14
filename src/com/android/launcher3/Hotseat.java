@@ -172,7 +172,7 @@ public class Hotseat extends FrameLayout implements Insettable {
         mIconsContainer.addView(mPageIndicator);
         mPagedView.setPageIndicator(mPageIndicator);
 
-        if (Flags.enableQsbOnHotseat()) {
+        if (Flags.enableQsbOnHotseat() && hotseatMode != DisabledHotseat.INSTANCE) {
             mQsb = LayoutInflater.from(context).inflate(R.layout.qsb_container_hotseat, this,
                     false);
         } else {
@@ -224,7 +224,12 @@ public class Hotseat extends FrameLayout implements Insettable {
         background.setCornerRadius(cornerRadius);
         InsetDrawable bg = new InsetDrawable(background,
                 insetHorizontalLeft, insetVerticalTop, insetHorizontalRight, insetVerticalBottom);
-        setBackground(bg);
+        mIconsContainer.setBackground(bg);
+        app.lawnchair.hotseat.DockBackgrounds.apply(mIconsContainer, baseColor, alphaValue, cornerRadius,
+                insetHorizontalLeft, insetVerticalTop, insetHorizontalRight, insetVerticalBottom,
+                preferenceManager.getDockBackgroundImage().get(),
+                preferenceManager.getDockBackgroundBlur().get(),
+                preferenceManager.getDockBackgroundShadow().get());
     }
 
     /** Provides translation X for hotseat icons for the channel. */

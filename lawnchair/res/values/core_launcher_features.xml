@@ -11,4 +11,10 @@
     <string name="core_category_other">Other</string>
     <string name="core_glass_drawer">Glass app drawer</string>
     <string name="core_glass_drawer_help">Translucent drawer, highlighted search bar and glass folders. Background color and opacity control the tint; wallpaper blur uses the existing blur settings.</string>
+    <string name="core_show_bottom_search">Show bottom search bar</string>
+    <string name="core_dock_background_image">Choose dock background image</string>
+    <string name="core_dock_background_image_clear">Remove dock background image</string>
+    <string name="core_dock_background_blur">Blur background image</string>
+    <string name="core_dock_background_blur_help">Softens only the chosen image; icons stay sharp.</string>
+    <string name="core_dock_background_shadow">Dock background shadow</string>
 </resources>
