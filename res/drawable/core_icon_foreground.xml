@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CORE original mark: open ring around a central square. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#00000000" android:strokeColor="#FFFFFF" android:strokeWidth="8" android:strokeLineCap="round" android:pathData="M72,35 A26,26 0,1 0,72 73"/>
+    <path android:fillColor="#8A2443" android:pathData="M47,47 L61,47 L61,61 L47,61 Z"/>
+</vector>

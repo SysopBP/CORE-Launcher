@@ -35,7 +35,9 @@ class NightlyBuildsRepository(
     private var latestBuildNumber: Int = 0
     private var currentCommitHash: String = BuildConfig.COMMIT_HASH
 
+    // Modified for CORE: upstream APKs are not updates for this independent app.
     fun checkForUpdate() {
+        if (BuildConfig.APPLICATION_ID.startsWith("com.sysopbp.core")) return
         coroutineScope.launch(Dispatchers.Default) {
             updateState.update { UpdateState.Checking }
             try {

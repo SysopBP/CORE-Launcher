@@ -74,6 +74,7 @@
     <uses-permission android:name="${applicationId}.permission.WRITE_SETTINGS" />
     <uses-permission android:name="${applicationId}.permission.GRID_CONTROL" />
 
+    <!-- Modified for CORE Launcher: original CORE application icon. -->
     <application
         android:backupAgent="com.android.launcher3.LauncherBackupAgent"
         android:name="app.lawnchair.LawnchairApp"
@@ -81,7 +82,7 @@
         android:backupInForeground="true"
         android:fullBackupContent="@xml/backupscheme"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher_home"
+        android:icon="@mipmap/core_launcher_icon"
         android:label="@string/derived_app_name"
         android:largeHeap="@bool/config_largeHeap"
         android:restoreAnyVersion="true"

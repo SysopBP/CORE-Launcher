@@ -56,6 +56,7 @@
         android:name="${packageName}.permission.HOTSEAT_EDU"
         tools:node="remove" />
 
+    <!-- Modified for CORE Launcher: settings and shortcut icons. -->
     <application>
         <meta-data
             android:name="preloaded_fonts"
@@ -66,7 +67,7 @@
             android:autoRemoveFromRecents="true"
             android:exported="true"
             android:label="@string/settings_button_text"
-            android:icon="@mipmap/ic_settings"
+            android:icon="@mipmap/core_launcher_icon"
             android:theme="@style/Theme.Lawnchair"
             android:windowSoftInputMode="adjustResize"
             android:enableOnBackInvokedCallback="true">
@@ -85,7 +86,7 @@
 
         <activity
             android:label="@string/lawnchair_actions"
-            android:icon="@mipmap/ic_launcher_home"
+            android:icon="@mipmap/core_launcher_icon"
             android:name="app.lawnchair.gestures.ui.LawnchairShortcutActivity"
             android:exported="true"
             android:theme="@style/Theme.Lawnchair">
