@@ -1534,6 +1534,11 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
     }
 
     void replaceFolderWithFinalItem() {
+        // Drawer folders have no workspace CellLayout and must retain their category label,
+        // including when only one app remains. Never convert them into workspace items.
+        if (isInAppDrawer()) {
+            return;
+        }
         mDestroyed = mLauncherDelegate.replaceFolderWithFinalItem(this);
     }
 
