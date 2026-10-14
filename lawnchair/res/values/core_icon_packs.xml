@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_browse_icon_packs">Browse installed icon packs</string>
+    <string name="core_search_icon_packs">Search name or package</string>
+    <string name="core_icon_pack_studio_help">Install your exported Icon Pack Studio APK, then choose it here. Selecting a pack updates your home screen, dock, and app drawer. To see the pack’s original colors, turn themed icons off.</string>
+    <string name="core_no_icon_packs">No matching packs. Export and install your icon pack, then return here.</string>
+</resources>

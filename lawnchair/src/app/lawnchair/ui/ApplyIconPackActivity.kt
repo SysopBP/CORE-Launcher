@@ -47,7 +47,7 @@ import app.lawnchair.icons.CustomAdaptiveIconDrawable
 import app.lawnchair.preferences.PreferenceManager
 import app.lawnchair.ui.preferences.components.layout.PreferenceGroup
 import app.lawnchair.ui.preferences.components.layout.PreferenceTemplate
-import app.lawnchair.ui.preferences.iconPackIntents
+import app.lawnchair.ui.preferences.getInstalledIconPackApplications
 import app.lawnchair.ui.theme.EdgeToEdge
 import app.lawnchair.ui.theme.LawnchairTheme
 import com.android.launcher3.R
@@ -106,12 +106,11 @@ class ApplyIconPackActivity : ComponentActivity() {
 
     private fun resolveIconPackInfo(packageName: String): Pair<String, Drawable>? {
         val pm = this.packageManager
-        val resolveInfo = iconPackIntents
-            .flatMap { pm.queryIntentActivities(it, 0) }
-            .firstOrNull { it.activityInfo.packageName == packageName }
+        val info = getInstalledIconPackApplications(pm)
+            .firstOrNull { it.packageName == packageName }
             ?: return null
-        val name = resolveInfo.loadLabel(pm).toString()
-        val icon = CustomAdaptiveIconDrawable.wrapNonNull(resolveInfo.loadIcon(pm))
+        val name = pm.getApplicationLabel(info).toString()
+        val icon = CustomAdaptiveIconDrawable.wrapNonNull(pm.getApplicationIcon(info))
         return name to icon
     }
 }

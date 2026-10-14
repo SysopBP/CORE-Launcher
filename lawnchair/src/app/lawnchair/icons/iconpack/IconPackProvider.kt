@@ -30,6 +30,7 @@ class IconPackProvider @Inject constructor(
         return getIconPack(packageName)
     }
 
+    @Synchronized
     fun getIconPack(packageName: String): IconPack? {
         if (packageName.isEmpty()) {
             return null
@@ -77,8 +78,14 @@ class IconPackProvider @Inject constructor(
         return drawable
     }
 
+    @Synchronized
+    fun invalidate(packageName: String) {
+        iconPacks.remove(packageName)
+    }
+
+    @Synchronized
     override fun close() {
-        TODO("Not yet implemented")
+        iconPacks.clear()
     }
 
     companion object {

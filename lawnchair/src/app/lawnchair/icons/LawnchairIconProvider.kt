@@ -295,7 +295,7 @@ class LawnchairIconProvider @Inject constructor(
         return MultiSafeCloseable().apply {
             add(super.registerIconChangeListener(callback, handler))
             add(IconPackChangeReceiver(context, handler, callback))
-            add(LawniconsChangeReceiver(context, handler))
+            add(LawniconsChangeReceiver(context, handler, callback))
         }
     }
 
@@ -397,6 +397,7 @@ class LawnchairIconProvider @Inject constructor(
     private inner class LawniconsChangeReceiver(
         private val context: Context,
         handler: Handler,
+        private val callback: IconChangeListener,
     ) : BroadcastReceiver(),
         SafeCloseable {
 
@@ -409,11 +410,22 @@ class LawnchairIconProvider @Inject constructor(
         }
 
         override fun onReceive(context: Context, intent: Intent) {
-            if (intent.data?.schemeSpecificPart != themedIconSourcePref.get()) return
+            val packageName = intent.data?.schemeSpecificPart ?: return
+            iconPackProvider.invalidate(packageName)
+            if (packageName != themedIconSourcePref.get() && packageName != iconPackPref.get()) return
+            if (intent.action == ACTION_PACKAGE_REMOVED && intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) return
             synchronized(themeMapLock) {
                 _themeMap = null
             }
             updateSystemState()
+            // Re-exporting IPS replaces the same package: refresh every app using its mappings.
+            val launcherApps = context.requireSystemService<LauncherApps>()
+            context.getSystemService<UserManager>()?.userProfiles?.forEach { user ->
+                launcherApps.getActivityList(null, user)
+                    .map { it.componentName.packageName }
+                    .distinct()
+                    .forEach { callback.onAppIconChanged(it, user) }
+            }
         }
 
         override fun close() {
