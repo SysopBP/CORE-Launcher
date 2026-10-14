@@ -278,6 +278,7 @@ public class DeviceProfile {
     /** Used only as an alternative to mocking when null values cannot be used. */
     @VisibleForTesting
     public DeviceProfile() {
+        dockHeightFactor = 1f;
         mDeviceProperties = new DeviceProperties(
                 0,0,
                 0,
