@@ -48,8 +48,10 @@ fun PreferenceTemplate(
     shapes: ListItemShapes = ListItemDefaults.shapes(),
     onClick: (() -> Unit)? = null,
     colors: ListItemColors = ListItemDefaults.segmentedColors(
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+        containerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha =
+            if (app.lawnchair.ui.preferences.LocalCoreSettingsGlass.current) app.lawnchair.ui.preferences.LocalCoreSettingsOpacity.current else 1f),
+        disabledContainerColor = MaterialTheme.colorScheme.surfaceContainer.copy(alpha =
+            if (app.lawnchair.ui.preferences.LocalCoreSettingsGlass.current) app.lawnchair.ui.preferences.LocalCoreSettingsOpacity.current else 1f),
     ),
     interactionSource: MutableInteractionSource? = null,
 ) {
