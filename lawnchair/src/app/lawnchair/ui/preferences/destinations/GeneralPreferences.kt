@@ -92,6 +92,25 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
         label = stringResource(id = R.string.general_label),
         modifier = modifier,
     ) {
+        PreferenceGroup(heading = stringResource(R.string.core_settings_appearance)) {
+            SwitchPreference(
+                adapter = prefs.coreSettingsMiuix.getAdapter(),
+                label = stringResource(R.string.core_settings_miuix),
+                description = stringResource(R.string.core_settings_miuix_help),
+            )
+            SwitchPreference(
+                adapter = prefs.coreSettingsGlass.getAdapter(),
+                label = stringResource(R.string.core_settings_glass),
+                description = stringResource(R.string.core_settings_glass_help),
+            )
+            ExpandAndShrink(visible = prefs.coreSettingsGlass.getAdapter().state.value) {
+                SliderPreference(
+                    adapter = prefs.coreSettingsOpacity.getAdapter(),
+                    label = stringResource(R.string.core_settings_opacity),
+                    valueRange = 0.4f..1f, step = 0.05f, showAsPercentage = true,
+                )
+            }
+        }
         PreferenceGroup {
             SwitchPreference(
                 adapter = prefs.allowRotation.getAdapter(),
