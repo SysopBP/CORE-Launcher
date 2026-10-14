@@ -1,29 +1,9 @@
-# Security policy
+# Security reporting for CORE Launcher
 
-## Supported versions
+CORE Launcher is an independent SysopBP fork. Security issues in CORE-specific builds should be reported here, rather than to Lawnchair's upstream advisory page.
 
-> [!WARNING]
-> [Lawnchair Legacy](https://play.google.com/store/apps/details?id=ch.deletescape.lawnchair.plah) is **unsupported**. Use the newer versions instead.
+Use [Report a vulnerability](https://github.com/SysopBP/CORE-Launcher/security/advisories/new) if private reporting is enabled. If GitHub reports that private reporting is unavailable, ask the maintainer through an issue for a private reporting route without publishing exploit details, logs containing secrets, or personal data. This document does not claim private reporting is enabled.
 
-The latest version of Lawnchair is the only supported version.
+Include the exact commit/build, Android version, package/variant and a minimal reproduction. Preview builds are experimental; verify a fix on the exact supported build before relying on it. No bug bounty or response-time guarantee is offered.
 
-| Version        | Supported          |
-|----------------|--------------------|
-| Nightly build  | :white_check_mark: |
-| 16             | :white_check_mark: |
-| 15             | :x:                |
-| 14             | :x:                |
-| 13             | :x:                |
-| 12.1           | :x:                |
-| 12             | :x:                |
-| 11             | :x:                |
-| Older (Legacy) | :x:                |
-
-## Reporting security issues
-
-We appreciate your efforts to responsibly disclose your findings and will make every effort to
-acknowledge your contributions.
-
-To report an issue, please file a [security advisory on GitHub](https://github.com/LawnchairLauncher/lawnchair/security/advisories/new).
-
-We'll endeavor to respond quickly, and will keep you updated throughout the process.
+Preserve upstream attribution when a report involves inherited code. Upstream maintainers are not responsible for CORE-only modifications.
