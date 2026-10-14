@@ -1,0 +1,15 @@
+CORE Launcher — independent fork maintained by SysopBP.
+
+Based on Lawnchair (https://github.com/LawnchairLauncher/lawnchair) and AOSP
+Launcher3. The original root notice identifies:
+Copyright (c) 2005-2008, The Android Open Source Project
+Copyright (c) 2024, Lawnchair
+
+Original file-level copyright and attribution notices remain applicable.
+This notice supplements them; it does not replace any upstream NOTICE text.
+Apache License 2.0 is reproduced in LICENSE.txt. Third-party component licenses
+remain applicable. The Gradle licensee report and lawnchair/assets/license.html
+provide library/license material and must be verified in each shipped variant.
+
+CORE modifications and this compliance/documentation update: SysopBP, 2026.
+This fork is not endorsed by Lawnchair, Google, Samsung or their contributors.
