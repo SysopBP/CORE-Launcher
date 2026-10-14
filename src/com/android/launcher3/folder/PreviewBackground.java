@@ -381,7 +381,8 @@ public class PreviewBackground extends DelegatedCellDrawing {
     }
 
     public void drawBackgroundStroke(Canvas canvas) {
-        if (!DRAW_STROKE) {
+        boolean glass = app.lawnchair.util.LawnchairUtilsKt.isGlassAppDrawer(mContext);
+        if (!DRAW_STROKE && !glass) {
             return;
         }
         mPaint.setColor(glass ? 0x70FFFFFF : setColorAlphaBound(mStrokeColor, mStrokeAlpha));
