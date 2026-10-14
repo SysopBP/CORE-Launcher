@@ -205,6 +205,16 @@ public class ShortcutAndWidgetContainer extends ViewGroup implements FolderIcon.
         int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(lp.width, MeasureSpec.EXACTLY);
         int childheightMeasureSpec = MeasureSpec.makeMeasureSpec(lp.height, MeasureSpec.EXACTLY);
         child.measure(childWidthMeasureSpec, childheightMeasureSpec);
+        if (mContainerType == HOTSEAT && !isChildQsb(child)) {
+            // Keep a visible gap even when a user chooses a dense dock row.
+            // Preserve the cell positions and stored dock layout.
+            int iconSize = child instanceof BubbleTextView
+                    ? ((BubbleTextView) child).getIconSize() : dp.iconSizePx;
+            float gap = 8f * getResources().getDisplayMetrics().density;
+            float scale = Math.min(1f, Math.max(1f, lp.width - gap) / Math.max(1, iconSize));
+            child.setScaleX(scale);
+            child.setScaleY(scale);
+        }
     }
 
     private boolean isChildQsb(View child) {
