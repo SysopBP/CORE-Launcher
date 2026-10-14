@@ -20,4 +20,10 @@
     <string name="core_dock_icon_size">Dock icon size</string>
     <string name="core_dock_height">Dock bar height</string>
     <string name="core_folder_icon_size">Folder icon size</string>
+    <string name="core_settings_appearance">Settings app appearance</string>
+    <string name="core_settings_miuix">MIUIX-style settings</string>
+    <string name="core_settings_miuix_help">Rounded cards, clean typography and neutral colors for CORE settings.</string>
+    <string name="core_settings_glass">Glass settings cards</string>
+    <string name="core_settings_glass_help">Translucent cards over a tinted gradient in the settings app.</string>
+    <string name="core_settings_opacity">Glass card opacity</string>
 </resources>
