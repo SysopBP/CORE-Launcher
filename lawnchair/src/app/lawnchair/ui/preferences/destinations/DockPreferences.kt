@@ -88,12 +88,14 @@ fun DockPreferences(modifier: Modifier = Modifier) {
                 }
             }
             val searchMode = prefs2.hotseatMode.getAdapter()
-            SwitchPreference(
-                checked = searchMode.state.value != DisabledHotseat,
-                onCheckedChange = { searchMode.onChange(if (it) LawnchairHotseat else DisabledHotseat) },
-                label = stringResource(R.string.core_show_bottom_search),
-            )
-            SearchBarPreference(SearchRoute.DOCK_SEARCH)
+            PreferenceGroup(heading = stringResource(R.string.search_bar_label)) {
+                SwitchPreference(
+                    checked = searchMode.state.value != DisabledHotseat,
+                    onCheckedChange = { searchMode.onChange(if (it) LawnchairHotseat else DisabledHotseat) },
+                    label = stringResource(R.string.core_show_bottom_search),
+                )
+                SearchBarPreference(SearchRoute.DOCK_SEARCH, showLabel = false)
+            }
             GridSettings(prefs, prefs2)
             PreferenceGroup(heading = stringResource(id = R.string.icons)) {
                 SwitchPreference(
