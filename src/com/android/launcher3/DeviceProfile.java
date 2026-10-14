@@ -350,6 +350,7 @@ public class DeviceProfile {
     private float workspacePaddingVerticalFactor;
     private float widgetPaddingFactor;
     private float drawerPaddingTopFactor;
+    private final float dockHeightFactor;
     private PreferenceManager2 preferenceManager2 = null;
 
     /** TODO: Once we fully migrate to staged split, remove "isMultiWindowMode" */
@@ -362,6 +363,8 @@ public class DeviceProfile {
             boolean isTransientTaskbar, DisplayOptionSpec displayOptionSpec) {
         mTextFactors = DeviceProfileOverrides.INSTANCE.get(context).getTextFactors();
 
+        dockHeightFactor = Utilities.boundToRange(
+                PreferenceManager.getInstance(context).getDockHeightFactor().get(), 1f, 1.8f);
         preferenceManager2 = PreferenceManager2.INSTANCE.get(context);
         allAppsCellHeightMultiplier = PreferenceCacheExtensionsKt
                 .firstCached(preferenceManager2.getDrawerCellHeightFactor());
@@ -904,7 +907,7 @@ public class DeviceProfile {
         hotseatCellHeightPx = app.lawnchair.util.DockCellSize.calculate(
                 hotseatIconSizePx, iconTextHeight, isLabelInDock, pxFromDp(48, mMetrics));
         int originalDockCellHeight = hotseatCellHeightPx;
-        hotseatCellHeightPx = Math.round(hotseatCellHeightPx * preferenceManager.getDockHeightFactor().get());
+        hotseatCellHeightPx = Math.round(hotseatCellHeightPx * dockHeightFactor);
         hotseatQsbSpace = mHotseatQsbSpaceBase;
         hotseatQsbSpace += isQsbEnable && isLabelInDock ? (iconTextHeight / 2) : 0;
         
