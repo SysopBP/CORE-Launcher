@@ -92,9 +92,10 @@ fun Preferences(
 
     var currentTopRoute by remember { mutableStateOf(defaultStartingRoute) }
 
+    CoreSettingsTheme {
     Providers {
         Surface(
-            color = MaterialTheme.colorScheme.surface,
+            color = if (LocalCoreSettingsGlass.current) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface,
             modifier = modifier,
         ) {
             CompositionLocalProvider(
@@ -120,6 +121,7 @@ fun Preferences(
                 }
             }
         }
+    }
     }
 }
 
