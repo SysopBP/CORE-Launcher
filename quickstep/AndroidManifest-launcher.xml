@@ -31,13 +31,14 @@
     Refer comments around specific entries on how to extend individual components.
     -->
 
+    <!-- Modified for CORE Launcher: match the shared manifest application icon. -->
     <application
         android:name="app.lawnchair.LawnchairApp"
         android:backupAgent="com.android.launcher3.LauncherBackupAgent"
         android:fullBackupOnly="true"
         android:fullBackupContent="@xml/backupscheme"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher_home"
+        android:icon="@mipmap/core_launcher_icon"
         android:label="@string/derived_app_name"
         android:theme="@style/AppTheme"
         android:largeHeap="@bool/config_largeHeap"
@@ -78,3 +79,4 @@
 
     </application>
 </manifest>
+
