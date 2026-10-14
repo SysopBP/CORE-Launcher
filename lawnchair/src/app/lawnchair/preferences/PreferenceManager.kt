@@ -190,6 +190,7 @@ class PreferenceManager @Inject constructor(
 
     val glassAppDrawer = BoolPref("pref_coreGlassAppDrawer", false, recreate)
     val drawerList = BoolPref("pref_drawerList", false, recreate)
+    val folderIconScale = FloatPref("pref_coreFolderIconScale", 1f, recreate)
     val folderApps = BoolPref("pref_hideFolderApps", true, reloadGrid)
 
     val recentsActionScreenshot = BoolPref("pref_recentsActionScreenshot", !isOnePlusStock)
