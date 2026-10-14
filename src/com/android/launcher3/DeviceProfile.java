@@ -351,6 +351,7 @@ public class DeviceProfile {
     private float workspacePaddingVerticalFactor;
     private float widgetPaddingFactor;
     private float drawerPaddingTopFactor;
+    private float folderIconScale = 1f;
     private final float dockHeightFactor;
     private PreferenceManager2 preferenceManager2 = null;
 
@@ -364,6 +365,8 @@ public class DeviceProfile {
             boolean isTransientTaskbar, DisplayOptionSpec displayOptionSpec) {
         mTextFactors = DeviceProfileOverrides.INSTANCE.get(context).getTextFactors();
 
+        folderIconScale = Utilities.boundToRange(
+                PreferenceManager.getInstance(context).getFolderIconScale().get(), 0.8f, 1.4f);
         dockHeightFactor = Utilities.boundToRange(
                 PreferenceManager.getInstance(context).getDockHeightFactor().get(), 1f, 1.8f);
         preferenceManager2 = PreferenceManager2.INSTANCE.get(context);
@@ -1397,7 +1400,7 @@ public class DeviceProfile {
         updateHotseatSizes(iconSizePx);
 
         // Folder icon
-        folderIconSizePx = Math.round(iconSizePx * ICON_VISIBLE_AREA_FACTOR);
+        folderIconSizePx = Math.round(iconSizePx * ICON_VISIBLE_AREA_FACTOR * folderIconScale);
         folderIconOffsetYPx = (iconSizePx - folderIconSizePx) / 2;
 
         // Update widget padding:
