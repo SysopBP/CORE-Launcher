@@ -44,7 +44,7 @@ object FolderQuickAdd {
         val context = folder.context
         val info = folder.info
         val title = info.title?.toString().orEmpty()
-        val existing = info.contents.mapNotNull { item ->
+        val existing = info.getContents().mapNotNull { item ->
             item.targetComponent?.let { ComponentKey(it, item.user).toString() }
         }.toSet()
         val hidden = PreferenceManager2.getInstance(context).hiddenApps.firstCached()
