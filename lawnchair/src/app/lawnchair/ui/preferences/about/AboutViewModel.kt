@@ -188,27 +188,17 @@ class AboutViewModel(
             Link(
                 iconResId = R.drawable.ic_new_releases,
                 labelResId = R.string.news,
-                url = "https://t.me/lawnchairci",
+                url = "https://github.com/SysopBP/CORE-Launcher/releases",
             ),
             Link(
                 iconResId = R.drawable.ic_help,
                 labelResId = R.string.support,
-                url = "https://lawnchair.app/support",
+                url = "https://github.com/SysopBP/CORE-Launcher/issues",
             ),
             Link(
                 iconResId = R.drawable.ic_github,
                 labelResId = R.string.github,
-                url = "https://github.com/LawnchairLauncher/lawnchair",
-            ),
-            Link(
-                iconResId = R.drawable.ic_translate,
-                labelResId = R.string.translate,
-                url = "https://lawnchair.crowdin.com/lawnchair",
-            ),
-            Link(
-                iconResId = R.drawable.ic_open_collective,
-                labelResId = R.string.donate,
-                url = "https://opencollective.com/lawnchair",
+                url = "https://github.com/SysopBP/CORE-Launcher",
             ),
         )
 
