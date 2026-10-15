@@ -973,7 +973,9 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
      * Determines whether we should animate the folder opening.
      */
     boolean shouldAnimateOpen(List<ItemInfo> items) {
-        if (items == null || items.size() <= 1) {
+        // Drawer categories remain folders even with one app. Workspace folders still
+        // require two items because their final item replaces the folder.
+        if (items == null || items.isEmpty() || (items.size() == 1 && !isInAppDrawer())) {
             Log.d(TAG, "Couldn't animate folder open because items is: " + items);
             return false;
         }
@@ -1054,7 +1056,7 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
         }
 
         int size = getIconsInReadingOrder().size();
-        if (size <= 1) {
+        if (size == 0 || (size == 1 && !isInAppDrawer())) {
             Log.d(TAG, "Couldn't animate folder closed because there's " + size + " icons");
             closeComplete(false);
             post(this::announceAccessibilityChanges);

@@ -192,6 +192,15 @@ class FolderTest {
     }
 
     @Test
+    fun `Single app drawer category can open but empty category cannot`() {
+        folder.mInfo = FolderInfo().apply { container = ItemInfo.NO_ID }
+
+        assertTrue(folder.shouldAnimateOpen(arrayListOf(Mockito.mock(ItemInfo::class.java))))
+        assertFalse(folder.shouldAnimateOpen(emptyList()))
+        assertFalse(folder.shouldAnimateOpen(null))
+    }
+
+    @Test
     fun `We should animate open if items greater than 1`() {
         val folderInfo =
             workspaceBuilder.createFolderInCell(FolderPoint(Point(1, 0), TWO_ICON_FOLDER_TYPE), 0)
