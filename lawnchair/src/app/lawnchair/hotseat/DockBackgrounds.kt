@@ -80,9 +80,14 @@ private class DockMaterial(val image: Bitmap?, val color: Int, val materialOpaci
             paint.alpha = materialOpacity * drawableAlpha / 255
             if (blur && Build.VERSION.SDK_INT >= 31 && canvas.isHardwareAccelerated) {
                 val node = renderNode ?: RenderNode("CORE dock image").also { renderNode = it }
-                node.setPosition(0, 0, bounds.right, bounds.bottom)
+                val nodeLeft = kotlin.math.floor(minOf(bounds.left.toFloat(), panel.left)).toInt()
+                val nodeTop = kotlin.math.floor(minOf(bounds.top.toFloat(), panel.top)).toInt()
+                val nodeRight = kotlin.math.ceil(maxOf(bounds.right.toFloat(), panel.right)).toInt()
+                val nodeBottom = kotlin.math.ceil(maxOf(bounds.bottom.toFloat(), panel.bottom)).toInt()
+                node.setPosition(nodeLeft, nodeTop, nodeRight, nodeBottom)
                 node.setRenderEffect(RenderEffect.createBlurEffect(14f * density, 14f * density, Shader.TileMode.CLAMP))
                 val recording = node.beginRecording()
+                recording.translate(-nodeLeft.toFloat(), -nodeTop.toFloat())
                 recording.drawRoundRect(panel, radius, radius, paint)
                 node.endRecording()
                 val save = canvas.save()

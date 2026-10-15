@@ -154,14 +154,14 @@ fun HotseatBackgroundSettings(prefs: PreferenceManager, prefs2: PreferenceManage
             label = stringResource(id = R.string.hotseat_bg_horizontal_inset_left),
             adapter = prefs.hotseatBGHorizontalInsetLeft.getAdapter(),
             step = 5,
-            valueRange = 0..100,
+            valueRange = -100..100,
             showUnit = "px",
         )
         SliderPreference(
             label = stringResource(id = R.string.hotseat_bg_horizontal_inset_right),
             adapter = prefs.hotseatBGHorizontalInsetRight.getAdapter(),
             step = 5,
-            valueRange = 0..100,
+            valueRange = -100..100,
             showUnit = "px",
         )
         SliderPreference(

@@ -209,8 +209,10 @@ public class Hotseat extends FrameLayout implements Insettable {
         var alphaValue = (transparency * 255) / 100;
         var baseColor = bgColor.getColorPreferenceEntry().getLightColor().invoke(getContext());
         var finalColor = Color.argb(alphaValue, Color.red(baseColor), Color.green(baseColor), Color.blue(baseColor));
-        int insetHorizontalLeft = preferenceManager.getHotseatBGHorizontalInsetLeft().get();
-        int insetHorizontalRight = preferenceManager.getHotseatBGHorizontalInsetRight().get();
+        // Extend the material beyond the end cells without changing icon layout.
+        int edgePadding = Math.round(8 * getResources().getDisplayMetrics().density);
+        int insetHorizontalLeft = preferenceManager.getHotseatBGHorizontalInsetLeft().get() - edgePadding;
+        int insetHorizontalRight = preferenceManager.getHotseatBGHorizontalInsetRight().get() - edgePadding;
         int insetVerticalTop = preferenceManager.getHotseatBGVerticalInsetTop().get();
         int insetVerticalBottom = preferenceManager.getHotseatBGVerticalInsetBottom().get();
         float cornerRadiusDp = PreferenceCacheExtensionsKt.firstCached(
